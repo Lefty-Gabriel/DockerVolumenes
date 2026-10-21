@@ -53,7 +53,6 @@ Un volumen es un recurso de almacenamiento administrado por Docker que tiene un 
 
 - Guía de la práctica No. 3.
 - Video explicativo en la plataforma EVA
-- Capturas de pantalla de la ejecución de la práctica.
 
 ## 8. Procedimiento
 
@@ -90,8 +89,6 @@ Se detuvo y eliminó el contenedor `server_db1` utilizando los comandos:
 **Paso 5: Recreación del contenedor y verificación.**
 
 Se volvió a crear el contenedor PostgreSQL con el mismo nombre `server_db1`, sin asociar el almacenamiento utilizado anteriormente. Después se estableció nuevamente la conexión desde el administrador y se comprobó que la base de datos `test` ya no estuviera disponible en esta nueva instancia.
-
-Esta comprobación permitió observar que reutilizar el nombre de un contenedor no recupera sus datos. Si permaneció un volumen anónimo del contenedor anterior, el nuevo contenedor no lo reutilizó automáticamente.
 
 <img width="1917" height="170" alt="Captura de pantalla 2026-10-20 205835" src="https://github.com/user-attachments/assets/85e52efa-3a62-439a-b463-ade85f44899d" />
 

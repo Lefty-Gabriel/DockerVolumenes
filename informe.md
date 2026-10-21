@@ -69,7 +69,7 @@ Se creó un contenedor a partir de la imagen de PostgreSQL con el nombre `server
 
 Se creó una base de datos denominada `test`. Dentro de ella se creó la tabla `customer`, con los campos `id`, `fullname` y `status`, para almacenar la información solicitada en la práctica.
 
-<img width="1076" height="463" alt="Captura de pantalla 2026-10-20 204445" src="https://github.com/user-attachments/assets/27522f4d-2dc4-4f3d-92e4-ee6bcd29171f" />
+<img width="1115" height="590" alt="image" src="https://github.com/user-attachments/assets/65f2348b-d265-4202-8f6b-6b63c4bb16a7" />
 
 
 **Paso 3: Inserción y consulta de registros.**

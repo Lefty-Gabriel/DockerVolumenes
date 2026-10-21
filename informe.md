@@ -1,12 +1,10 @@
-# Práctica No. 3 - Volúmenes en Docker con PostgreSQL
-
 ## 1. Título
 
 **Creación de volúmenes para persistir una base de datos PostgreSQL utilizando Docker**
 
 ## 2. Tiempo de duración
 
-[Completar con el tiempo real empleado en minutos].
+2 horas 
 
 ## 3. Fundamentos
 
@@ -22,27 +20,9 @@ PostgreSQL es un sistema de gestión de bases de datos relacionales que permite 
 
 Para desarrollar la actividad se utilizó una base de datos llamada `test` y una tabla denominada `customer`, con los campos `id`, `fullname` y `status`. La conexión mediante un administrador de bases de datos permitió crear estos elementos, insertar información y consultar los registros antes y después de recrear los contenedores.
 
-### Almacenamiento y persistencia
-
-Los archivos almacenados únicamente en la capa de escritura de un contenedor se eliminan junto con él. Detener un contenedor no equivale a eliminarlo: al detenerlo, su almacenamiento permanece disponible para el siguiente inicio. Sin embargo, crear otro contenedor con el mismo nombre no recupera automáticamente el almacenamiento utilizado por el anterior.
-
-La imagen oficial de PostgreSQL declara una ubicación de volumen para sus datos. Por ello, cuando no se configura un volumen propio, Docker puede crear un volumen anónimo. Este puede permanecer después de eliminar el contenedor, pero no se vuelve a asociar automáticamente al crear otro con el mismo nombre. En la primera parte, la ausencia de la base `test` en el nuevo contenedor demuestra que este no recuperó los datos anteriores; no implica necesariamente que todos los archivos se hayan borrado físicamente del equipo.
-
 ### Volúmenes de Docker
 
-Un volumen es un recurso de almacenamiento administrado por Docker que tiene un ciclo de vida independiente del contenedor. Al utilizar un volumen con nombre, como `pgdata`, es posible identificarlo y asociarlo nuevamente a otro contenedor. Esto permite conservar la base de datos, las tablas y los registros, siempre que el volumen permanezca disponible y se monte en la ubicación correcta.
-
-La ubicación depende de la versión de la imagen: en PostgreSQL 17 y anteriores se utiliza normalmente `/var/lib/postgresql/data`; en PostgreSQL 18 y posteriores, el montaje recomendado es `/var/lib/postgresql`. Es necesario mantener la misma versión principal de PostgreSQL al recrear el contenedor para esta comprobación, sin introducir una actualización del motor.
-
-```mermaid
-flowchart TD
-    A[Imagen de PostgreSQL] --> B[Contenedor server_db2]
-    C[Administrador de base de datos] --> B
-    B --> D[Volumen pgdata]
-    D --> E[Base test y tabla customer]
-```
-
-*Figura 1. Relación entre el contenedor PostgreSQL, el administrador de base de datos y el volumen de almacenamiento.*
+Un volumen es un recurso de almacenamiento administrado por Docker que tiene un ciclo de vida independiente del contenedor. Al utilizar un volumen con nombre, como `pgdata`, se puede identificar y asociar nuevamente a otro contenedor. Esto permite conservar la base de datos, las tablas y los registros, siempre que el volumen siga estando disponible y se monte en la ubicación correcta.
 
 ## 4. Conocimientos previos
 
@@ -52,7 +32,6 @@ flowchart TD
 - Comprensión de puertos y conexiones locales.
 - Conocimientos básicos de bases de datos relacionales y SQL.
 - Uso de un administrador de bases de datos.
-- Creación de repositorios y edición de archivos Markdown en GitHub.
 
 ## 5. Objetivos a alcanzar
 
@@ -69,16 +48,11 @@ flowchart TD
 - Laptop o computadora con Docker instalado y en ejecución.
 - Terminal de comandos.
 - Administrador de bases de datos compatible con PostgreSQL.
-- Conexión a Internet para descargar la imagen, si no se encuentra disponible localmente.
-- Cuenta de GitHub para publicar el informe.
 
 ## 7. Material de apoyo
 
 - Guía de la práctica No. 3.
-- Plantilla de informes proporcionada por el docente.
-- Documentación oficial de Docker sobre volúmenes.
-- Documentación de la imagen oficial de PostgreSQL.
-- Documentación oficial de PostgreSQL sobre bases de datos, tablas e inserción de registros.
+- Video explicativo en la plataforma EVA
 - Capturas de pantalla de la ejecución de la práctica.
 
 ## 8. Procedimiento
@@ -89,50 +63,29 @@ flowchart TD
 
 Se creó un contenedor a partir de la imagen de PostgreSQL con el nombre `server_db1`, configurando los datos de acceso y la publicación del puerto para permitir la conexión desde el administrador de bases de datos. En esta primera parte no se asoció explícitamente un volumen con nombre para reutilizarlo posteriormente.
 
-<!-- Insertar aquí la captura real. Usar un ancho máximo de 800 px. -->
+<img width="1917" height="167" alt="Captura de pantalla 2026-10-20 205320" src="https://github.com/user-attachments/assets/a4b80a69-e1d3-4ad3-8f0b-818b69b9bb67" />
 
-*Figura 2. Creación del contenedor PostgreSQL server_db1.*
 
-**Paso 2: Conexión al servidor PostgreSQL.**
-
-Desde el administrador de bases de datos se configuró una conexión con la dirección del servidor, el puerto publicado, el usuario y la contraseña establecidos al crear el contenedor. Después se comprobó que la conexión permitiera acceder a PostgreSQL.
-
-<!-- Insertar aquí la captura real de la conexión. -->
-
-*Figura 3. Conexión del administrador de bases de datos al contenedor server_db1.*
-
-**Paso 3: Creación de la base de datos y de la tabla.**
+**Paso 2: Creación de la base de datos y de la tabla.**
 
 Se creó una base de datos denominada `test`. Dentro de ella se creó la tabla `customer`, con los campos `id`, `fullname` y `status`, para almacenar la información solicitada en la práctica.
 
-<!-- Insertar aquí la captura real de la base test y la estructura de customer. -->
+<img width="1076" height="463" alt="Captura de pantalla 2026-10-20 204445" src="https://github.com/user-attachments/assets/27522f4d-2dc4-4f3d-92e4-ee6bcd29171f" />
 
-*Figura 4. Creación de la base test y de la tabla customer.*
 
-**Paso 4: Inserción y consulta de registros.**
+**Paso 3: Inserción y consulta de registros.**
 
 Se insertó al menos un registro en la tabla `customer`. Luego se consultó su contenido para comprobar que la información estuviera almacenada antes de eliminar el contenedor.
 
-```sql
-SELECT * FROM customer;
-```
+<img width="1310" height="855" alt="Captura de pantalla 2026-10-20 202556" src="https://github.com/user-attachments/assets/cceaf08d-eea6-4081-8918-f64d555b4aa0" />
 
-<!-- Insertar aquí la captura real de los registros. -->
 
-*Figura 5. Registro almacenado en la tabla customer del primer contenedor.*
+**Paso 4: Detención y eliminación del contenedor.**
 
-**Paso 5: Detención y eliminación del contenedor.**
+Se detuvo y eliminó el contenedor `server_db1` utilizando los comandos:
 
-Se detuvo y eliminó el contenedor `server_db1` utilizando los comandos correspondientes:
+<img width="1917" height="215" alt="Captura de pantalla 2026-10-20 205505" src="https://github.com/user-attachments/assets/6f5dfd2a-639c-431c-a003-20a71dbeabe8" />
 
-```bash
-docker stop server_db1
-docker rm server_db1
-```
-
-<!-- Insertar aquí la captura real de la detención y eliminación. -->
-
-*Figura 6. Detención y eliminación del contenedor server_db1.*
 
 **Paso 6: Recreación del contenedor y verificación.**
 
@@ -140,9 +93,9 @@ Se volvió a crear el contenedor PostgreSQL con el mismo nombre `server_db1`, si
 
 Esta comprobación permitió observar que reutilizar el nombre de un contenedor no recupera sus datos. Si permaneció un volumen anónimo del contenedor anterior, el nuevo contenedor no lo reutilizó automáticamente.
 
-<!-- Insertar aquí la captura real de la lista de bases después de recrear server_db1. -->
+<img width="1917" height="170" alt="Captura de pantalla 2026-10-20 205835" src="https://github.com/user-attachments/assets/85e52efa-3a62-439a-b463-ade85f44899d" />
+<img width="1076" height="463" alt="Captura de pantalla 2026-10-20 204445" src="https://github.com/user-attachments/assets/814656d9-d213-46a1-8d26-1db868329e17" />
 
-*Figura 7. Verificación de la ausencia de la base test en el contenedor recreado.*
 
 ### Parte 2: Base de datos con volumen
 

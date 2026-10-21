@@ -87,7 +87,7 @@ Se detuvo y eliminó el contenedor `server_db1` utilizando los comandos:
 <img width="1917" height="215" alt="Captura de pantalla 2026-10-20 205505" src="https://github.com/user-attachments/assets/6f5dfd2a-639c-431c-a003-20a71dbeabe8" />
 
 
-**Paso 6: Recreación del contenedor y verificación.**
+**Paso 5: Recreación del contenedor y verificación.**
 
 Se volvió a crear el contenedor PostgreSQL con el mismo nombre `server_db1`, sin asociar el almacenamiento utilizado anteriormente. Después se estableció nuevamente la conexión desde el administrador y se comprobó que la base de datos `test` ya no estuviera disponible en esta nueva instancia.
 
@@ -99,30 +99,29 @@ Esta comprobación permitió observar que reutilizar el nombre de un contenedor 
 
 ### Parte 2: Base de datos con volumen
 
-**Paso 7: Creación del volumen `pgdata`.**
+**Paso 6: Creación del volumen `pgdata`.**
 
 <img width="1345" height="320" alt="image" src="https://github.com/user-attachments/assets/1fbe396b-7aa7-4035-9590-3075b2821f52" />
 
 
-**Paso 8: Creación del contenedor `server_db2` con el volumen.**
+**Paso 7: Creación del contenedor `server_db2` con el volumen.**
 
 Se creó un segundo contenedor denominado `server_db2`, asociando el volumen `pgdata` a la ubicación de almacenamiento correspondiente a la versión de PostgreSQL utilizada. También se configuraron las credenciales y el puerto de conexión.
 
 De esta manera, los archivos de la base de datos quedaron almacenados en el volumen que se reutilizaría después de eliminar el contenedor.
 
-<!-- Insertar aquí la captura real del comando o configuración que muestra el montaje de pgdata. -->
+<img width="1917" height="117" alt="Captura de pantalla 2026-10-20 210848" src="https://github.com/user-attachments/assets/be185105-0bd9-4ab1-a420-4651f1bee303" />
 
-*Figura 9. Creación del contenedor server_db2 asociado al volumen pgdata.*
 
-**Paso 9: Conexión y creación de los datos de prueba.**
+**Paso 8: Conexión y creación de los datos de prueba.**
 
-Se configuró la conexión al contenedor `server_db2` desde el administrador de bases de datos. Luego se creó la base `test` y, dentro de ella, la tabla `customer` con los campos `id`, `fullname` y `status`. Se insertó al menos un registro y se consultó la tabla para verificar su almacenamiento.
+Se creó la base `test` y, dentro de ella, la tabla `customer` con los campos `id`, `fullname` y `status`. Se insertó al menos un registro y se consultó la tabla para verificar su almacenamiento.
 
 <!-- Insertar aquí la captura real de la tabla y sus registros en server_db2. -->
 
 *Figura 10. Base test y registros de customer almacenados mediante el volumen pgdata.*
 
-**Paso 10: Detención y eliminación de `server_db2`.**
+**Paso 9: Detención y eliminación de `server_db2`.**
 
 Se detuvo y eliminó el segundo contenedor, conservando el volumen `pgdata`:
 

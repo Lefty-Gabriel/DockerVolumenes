@@ -94,7 +94,9 @@ Se volvió a crear el contenedor PostgreSQL con el mismo nombre `server_db1`, si
 Esta comprobación permitió observar que reutilizar el nombre de un contenedor no recupera sus datos. Si permaneció un volumen anónimo del contenedor anterior, el nuevo contenedor no lo reutilizó automáticamente.
 
 <img width="1917" height="170" alt="Captura de pantalla 2026-10-20 205835" src="https://github.com/user-attachments/assets/85e52efa-3a62-439a-b463-ade85f44899d" />
-<img width="1076" height="463" alt="Captura de pantalla 2026-10-20 204445" src="https://github.com/user-attachments/assets/814656d9-d213-46a1-8d26-1db868329e17" />
+
+ <img width="1107" height="553" alt="image" src="https://github.com/user-attachments/assets/ccd0b6a8-8780-4611-8da2-051acf62f261" />
+
 
 
 ### Parte 2: Base de datos con volumen

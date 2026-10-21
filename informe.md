@@ -61,7 +61,7 @@ Un volumen es un recurso de almacenamiento administrado por Docker que tiene un 
 
 **Paso 1: Creación del contenedor `server_db1`.**
 
-Se creó un contenedor a partir de la imagen de PostgreSQL con el nombre `server_db1`, configurando los datos de acceso y la publicación del puerto para permitir la conexión desde el administrador de bases de datos. En esta primera parte no se asoció explícitamente un volumen con nombre para reutilizarlo posteriormente.
+Se creó un contenedor a partir de la imagen de PostgreSQL con el nombre `server_db1`, configurando los datos de acceso y la publicación del puerto para permitir la conexión desde el administrador de bases de datos.
 
 <img width="1917" height="167" alt="Captura de pantalla 2026-10-20 205320" src="https://github.com/user-attachments/assets/a4b80a69-e1d3-4ad3-8f0b-818b69b9bb67" />
 
@@ -97,21 +97,12 @@ Esta comprobación permitió observar que reutilizar el nombre de un contenedor 
 
  <img width="1107" height="553" alt="image" src="https://github.com/user-attachments/assets/ccd0b6a8-8780-4611-8da2-051acf62f261" />
 
-
-
 ### Parte 2: Base de datos con volumen
 
 **Paso 7: Creación del volumen `pgdata`.**
 
-Se creó un volumen con nombre para almacenar los datos de PostgreSQL de forma independiente del contenedor:
+<img width="1345" height="320" alt="image" src="https://github.com/user-attachments/assets/1fbe396b-7aa7-4035-9590-3075b2821f52" />
 
-```bash
-docker volume create pgdata
-```
-
-<!-- Insertar aquí la captura real de la creación del volumen. -->
-
-*Figura 8. Creación del volumen pgdata.*
 
 **Paso 8: Creación del contenedor `server_db2` con el volumen.**
 

@@ -117,44 +117,29 @@ De esta manera, los archivos de la base de datos quedaron almacenados en el volu
 
 Se creó la base `test` y, dentro de ella, la tabla `customer` con los campos `id`, `fullname` y `status`. Se insertó al menos un registro y se consultó la tabla para verificar su almacenamiento.
 
-<!-- Insertar aquí la captura real de la tabla y sus registros en server_db2. -->
+<img width="1173" height="570" alt="Captura de pantalla 2026-10-20 211329" src="https://github.com/user-attachments/assets/d6b3f019-731d-4bf1-a06c-16db4eab0848" />
 
-*Figura 10. Base test y registros de customer almacenados mediante el volumen pgdata.*
 
 **Paso 9: Detención y eliminación de `server_db2`.**
 
 Se detuvo y eliminó el segundo contenedor, conservando el volumen `pgdata`:
 
-```bash
-docker stop server_db2
-docker rm server_db2
-```
+<img width="1917" height="282" alt="Captura de pantalla 2026-10-20 211440" src="https://github.com/user-attachments/assets/8f0c68c2-fb7b-4e95-b678-5d7977968da0" />
 
-La eliminación del contenedor no eliminó el volumen con nombre, por lo que este quedó disponible para asociarlo nuevamente.
 
-<!-- Insertar aquí la captura real de la eliminación del contenedor y de la existencia del volumen. -->
-
-*Figura 11. Eliminación de server_db2 y conservación del volumen pgdata.*
-
-**Paso 11: Recreación de `server_db2` utilizando el mismo volumen.**
+**Paso 10: Recreación de `server_db2` utilizando el mismo volumen.**
 
 Se volvió a crear el contenedor `server_db2`, asociándolo nuevamente al volumen `pgdata` y utilizando la misma versión principal de PostgreSQL y la misma ubicación de montaje. Esto permitió que el servidor accediera a los archivos de la base de datos guardados en la primera ejecución.
 
-<!-- Insertar aquí la captura real de la recreación con el mismo volumen. -->
+<img width="1917" height="193" alt="Captura de pantalla 2026-10-20 211908" src="https://github.com/user-attachments/assets/92e04bf3-d3a9-42f7-89b8-91c245f02df6" />
 
-*Figura 12. Recreación del contenedor server_db2 con el volumen pgdata.*
 
 **Paso 12: Verificación de la persistencia de los datos.**
 
-Finalmente, se realizó una nueva conexión desde el administrador de bases de datos y se verificó que la base `test` y la tabla `customer` continuaran disponibles. Mediante la consulta de la tabla se comprobó que los registros insertados antes de eliminar el contenedor se conservaran.
+Se verificó que la base `test` y la tabla `customer` siguen estando disponibles. Mediante la consulta de la tabla se vio que los registros insertados antes de eliminar el contenedor se conservaron
 
-```sql
-SELECT * FROM customer;
-```
+<img width="1050" height="562" alt="Captura de pantalla 2026-10-21 170036" src="https://github.com/user-attachments/assets/aa8abd29-fdf1-42e9-9d1d-eb05b76c285e" />
 
-<!-- Insertar aquí la captura real del resultado final, mostrando los registros después de recrear server_db2. -->
-
-*Figura 13. Verificación final de los registros conservados después de recrear el contenedor.*
 
 ## 9. Resultados esperados
 
@@ -163,18 +148,6 @@ SELECT * FROM customer;
 - Una nueva instancia de `server_db1` en la que no aparezca la base `test`, al no reutilizar el almacenamiento anterior.
 - Un volumen `pgdata` creado y asociado al contenedor `server_db2`.
 - Una base `test`, una tabla `customer` y sus registros disponibles después de eliminar y recrear `server_db2` utilizando el mismo volumen.
-- Una comparación que permita comprender la diferencia entre el ciclo de vida del contenedor y el del volumen.
-
-| Comprobación | server_db1 sin reutilizar almacenamiento | server_db2 con pgdata |
-| --- | --- | --- |
-| Base test antes de eliminar el contenedor | Disponible | Disponible |
-| Reutilización explícita del almacenamiento al recrear | No | Sí |
-| Base test después de recrear el contenedor | No disponible | Disponible |
-| Registros anteriores de customer | No disponibles en la nueva instancia | Conservados |
-
-La práctica permite comprobar que los volúmenes con nombre facilitan la persistencia de una base de datos al separar su almacenamiento del contenedor. Para recuperar la información después de recrearlo, se debe conservar el volumen y asociarlo nuevamente a la ubicación correcta.
-
-<!-- La Figura 13 debe mostrar la evidencia del resultado final. -->
 
 ## 10. Bibliografía
 
@@ -185,5 +158,3 @@ Docker, Inc. (s. f.). *Postgres: Docker Official Image*. Docker Hub. https://hub
 Docker, Inc. (s. f.). *docker container rm*. Docker Docs. https://docs.docker.com/reference/cli/docker/container/rm/
 
 PostgreSQL Global Development Group. (s. f.). *PostgreSQL documentation*. https://www.postgresql.org/docs/
-
-maguaman2. (s. f.). *Plantilla de informe de prácticas*. GitHub. https://github.com/maguaman2/informe-tendencias/blob/main/informe.md
